@@ -1,6 +1,24 @@
 ---
-name: workflow-engine
-description: "Hermes DAG工作流引擎 v3.0 — 目标驱动的多步骤任务编排系统。支持DAG依赖、并行执行、故障转移、资源监控、版本管理、模式检测、可视化面板、社区共享。当用户要求\"执行工作流\"\"运行workflow\"\"自动化任务\"\"多步骤任务\"\"创建工作流\"\"模式检测\"\"版本管理\"\"DAG编排\"\"并行执行\"\"故障转移\"时触发。"
+name: hermes-workflow-engine
+description: |
+  Hermes DAG工作流引擎 v3.0 — 目标驱动的多步骤任务编排系统。
+  支持DAG依赖、并行执行、故障转移、资源监控、版本管理、模式检测、可视化面板、社区共享。
+  当用户要求执行工作流、运行workflow、自动化任务、多步骤任务、创建工作流、模式检测、
+  版本管理、DAG编排、并行执行、故障转移时触发。
+  适用场景：重复性多步骤任务自动化、需要暂停/恢复的长流程、跨工具协作编排。
+triggers:
+  - "执行工作流"
+  - "运行workflow"
+  - "自动化任务"
+  - "多步骤任务"
+  - "创建工作流"
+  - "模式检测"
+  - "版本管理"
+  - "DAG编排"
+  - "并行执行"
+  - "故障转移"
+  - "run workflow"
+  - "automate task"
 version: 3.0.0
 author: 小狗
 tags: [workflow, dag, automation, orchestration, metaskill]
@@ -467,6 +485,43 @@ run.py (依赖所有模块)
 3. **自定义资源估算** — 修改ResourceMonitor的DEFAULT_TOKEN_ESTIMATES
 4. **自定义模式检测** — 修改pattern_detector.py的TASK_PATTERNS和TOOL_PATTERNS
 5. **自定义面板样式** — 修改dashboard.py的HTML/CSS模板
+
+## 部署与发布
+
+### ClawHub 发布
+```bash
+# 1. 把代码复制到技能目录
+cp ~/.hermes/workflow-engine/*.py ~/.hermes/skills/devops/workflow-engine/scripts/
+cp -r ~/.hermes/workflow-engine/examples ~/.hermes/skills/devops/workflow-engine/scripts/
+
+# 2. 发布
+cd ~/.hermes/skills/devops/workflow-engine
+clawhub publish . --slug hermes-workflow-engine --name "Hermes Workflow Engine" --version x.y.z
+
+# 3. 验证
+clawhub inspect hermes-workflow-engine --files
+```
+
+**⚠️ 关键：ClawHub 只发布技能目录内的文件。代码必须在 `scripts/` 下，否则别人安装后没有代码。**
+
+### GitHub 仓库
+https://github.com/LGX281227231/workflow-engine
+
+### 跨服务器部署（龙虾）
+```bash
+# 1. 创建目录
+ssh root@43.173.120.234 "mkdir -p /root/.openclaw/workspace/workflow-engine"
+
+# 2. 打包传输
+cd ~/.hermes/workflow-engine && tar czf /tmp/wf.tar.gz --exclude='runs/*' --exclude='_community/*' *.py *.md examples/
+scp /tmp/wf.tar.gz root@43.173.120.234:/tmp/
+
+# 3. 解压并适配路径
+ssh root@43.173.120.234 "cd /root/.openclaw/workspace/workflow-engine && tar xzf /tmp/wf.tar.gz"
+ssh root@43.173.120.234 "sed -i 's|Path.home() / .hermes / workflow-engine|Path.home() / .openclaw / workspace / workflow-engine|g' /root/.openclaw/workspace/workflow-engine/run.py"
+```
+
+→ 详细发布流程见 [references/clawhub-publishing.md](references/clawhub-publishing.md)
 
 ## 参考与理论基础
 

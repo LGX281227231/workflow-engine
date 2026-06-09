@@ -1,0 +1,24 @@
+{
+  "name": "ai-news-daily",
+  "versions": [
+    {
+      "version": "1.0",
+      "saved_at": "2026-06-09T20:55:02.827694",
+      "message": "初始版本",
+      "hash": "946aceed"
+    },
+    {
+      "version": "2.0",
+      "saved_at": "2026-06-09T20:55:02.837258",
+      "message": "增加token预算到50000",
+      "hash": "f3d3a425"
+    },
+    {
+      "version": "1.0",
+      "saved_at": "2026-06-09T21:32:26.369572",
+      "message": "初始版本：每日AI新闻速报",
+      "hash": "946aceed"
+    }
+  ],
+  "current": "1.0"
+}

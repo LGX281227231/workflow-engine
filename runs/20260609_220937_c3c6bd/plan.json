@@ -1,0 +1,87 @@
+{
+  "workflow": "ai-news-daily",
+  "version": "1.0",
+  "run_id": "20260609_220937_c3c6bd",
+  "total_steps": 6,
+  "total_layers": 5,
+  "layers": [
+    {
+      "layer": 1,
+      "parallel": false,
+      "steps": [
+        {
+          "id": "search",
+          "name": "搜索AI新闻",
+          "type": "skill",
+          "depends": []
+        }
+      ]
+    },
+    {
+      "layer": 2,
+      "parallel": true,
+      "steps": [
+        {
+          "id": "infographic",
+          "name": "生成信息图",
+          "type": "skill",
+          "depends": [
+            "search"
+          ]
+        },
+        {
+          "id": "article",
+          "name": "撰写公众号文章",
+          "type": "skill",
+          "depends": [
+            "search"
+          ]
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "parallel": false,
+      "steps": [
+        {
+          "id": "cover",
+          "name": "制作封面",
+          "type": "llm",
+          "depends": [
+            "infographic"
+          ]
+        }
+      ]
+    },
+    {
+      "layer": 4,
+      "parallel": false,
+      "steps": [
+        {
+          "id": "review",
+          "name": "用户确认",
+          "type": "user_input",
+          "depends": [
+            "infographic",
+            "cover",
+            "article"
+          ]
+        }
+      ]
+    },
+    {
+      "layer": 5,
+      "parallel": false,
+      "steps": [
+        {
+          "id": "publish",
+          "name": "发布到公众号",
+          "type": "skill",
+          "depends": [
+            "review"
+          ]
+        }
+      ]
+    }
+  ]
+}

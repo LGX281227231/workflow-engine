@@ -1,0 +1,18 @@
+{
+  "ai-news-daily": {
+    "name": "ai-news-daily",
+    "description": "每日AI新闻搜索→信息图→封面→文章→发布",
+    "author": "绪哥",
+    "tags": [
+      "news",
+      "daily",
+      "wechat",
+      "ai"
+    ],
+    "published_at": "2026-06-09T21:32:35.127161",
+    "path": "/home/agentuser/.hermes/workflow-engine/_community/ai-news-daily.tgz",
+    "downloads": 0,
+    "rating": 5.0,
+    "rating_count": 1
+  }
+}
